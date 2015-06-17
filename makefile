@@ -1,9 +1,12 @@
 POSTS=$(shell ls -r posts/*)
+TEMPLATES=$(shell ls tpl/*)
 
-all: min.html
-	echo 'cp min.html index.html' | at now + 15 min
+all: draft.html
 
-min.html: spell
+index.html: min.html
+	cp min.html index.html
+
+min.html: draft.html
 	./node_modules/.bin/html-minifier \
 		--output $@ \
 		--minify-js \
@@ -15,12 +18,11 @@ min.html: spell
 		--remove-cdatasections-from-cdata \
 		draft.html
 
-.PHONY: spell
-spell: $(POSTS)
+.spell: $(POSTS)
 	for i in $(POSTS); do \
 		aspell -c $$i; \
 	done
+	touch .spell
 
-draft.html: $(POSTS)
-	make spell
-	./scripts/publish.sh $^
+draft.html: .spell $(POSTS) $(TEMPLATES)
+	./scripts/publish.sh $@ $(POSTS)

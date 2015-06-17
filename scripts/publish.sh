@@ -12,14 +12,16 @@ footer() {
     cat ~/website/tpl/footer.html
 }
 
+output=$1; shift
+
 echo "Publishing."
 echo "  Header"
-header > draft.html
+header > $output
 echo "  Posts"
 while [ ! -z "$1" ]; do
     echo "$1"
-    cat "$1" >> draft.html
+    markdown "$1" >> $output
     shift
 done
 echo "  Footer"
-footer >> draft.html
+footer >> $output
