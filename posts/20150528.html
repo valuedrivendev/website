@@ -1,0 +1,64 @@
+<hr/>
+<h1>
+    <a href="#20150528" id="20150528">#</a>
+    Value Driven Development
+</h1>
+<p>
+May 28, 2015.
+</p>
+<p>
+<i>Value Driven Development</i> or VDD emphasizes improving life of
+<strong>maintaining legacy code without tests</strong>.  The suggestions
+here do not apply to all situations.  I would recommend these
+suggestions for bugs you can fix, and test under an hour.
+</p>
+<p>
+<strong>Prefer small bug fixes. Avoid writing tests and refactoring until
+    they are absolutely required.</strong>
+</p>
+
+<h3>Working with legacy code is what we do mostly.</h3>
+<p>
+When faced with modifying legacy code, most people start with writing
+tests. That might involve refactoring code first to make it testable.
+This may take weeks if you are not careful. This is not productive.
+</p>
+
+<h3>That is not lost productivity.</h3>
+<p>
+Right; "the code is more maintainable", "the code is more readable", and
+etc.
+</p>
+<p>Well, ugly or not, <strong>legacy code has been around</strong>. In
+other words, it has been tested in the real world. If it is a one-off
+bug, then what are chances that you will have to come back to it again?
+Not all situations work out well.  We will talk about that later. If a
+particular area is troublesome, then you must consider other ways to
+resolve that. VDD is not suitable for these cases.
+</p>
+
+<h3>Think of it this way.</h3>
+<p>
+This insanity perfectly pleases capitalistic minds. <strong>Source code
+    is a business</strong>. You may argue that it is a business asset -- that
+is fine. <strong>Every bug is an investment opportunity</strong> because
+fixing it will increase the business value -- yes, pun intended.  The
+best return from an investment depends on gaining more value than any
+resource invested; for example, time or salary. It makes sense to
+minimize the work required to address a problem.
+</p>
+
+<h3>Okay, what are you cutting out from this business?</h3>
+<p>
+Small fixes are easier to verify manually than large refactoring changes
+thanks to (a) scopes of change; and (b) minimal chances of
+regression. <strong>Fix bug without writing tests first</strong>. Please
+test fixes locally to avoid wasting code review and testing time.
+<strong>Problems found in code reviews or testing indicate the need to write
+    tests.</strong> Then, go write some tests.
+</p>
+
+<h3>What if problems persist in the same area?</h3>
+<p>
+Then, I guess it is time for a heavy-duty refactoring/clean-up axe.
+</p>

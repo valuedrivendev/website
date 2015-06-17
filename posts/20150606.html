@@ -1,0 +1,89 @@
+<hr/>
+<h1>
+    <a href="#20150606" id="20150606">#</a>
+    Refactoring - Decompose Conditional
+</h1>
+<p>
+June 06, 2015.
+</p>
+
+<p>
+I recently bought the book, <i>Refactoring - Improving the Design of Existing Code</i>.
+I enjoy reading it a lot.
+</p>
+
+<h3>I am not a fanatic</h3>
+<p>
+when it comes to these topics anymore. I use what produces the most value.
+The example below illustrates the idea. Please do not take this literally.
+Sometimes, refactoring tiny code has no value.
+</p>
+
+<h3>An example in Java</h3>
+<p>
+Before
+<pre class="highlight"><code class="java">if (min &lt;= x &amp;&amp; x &lt;= max) {
+y = x / 2;
+} else {
+y = x * x;
+}</code></pre>
+</p>
+
+<p>
+After
+<pre class="highlight"><code class="java">if (inRange(min, max, x)) {
+y = half(x);
+} else {
+y = square(x);
+}
+
+private boolean inRange(
+int start,
+int end,
+int x) {
+return (start &lt;= x &amp;&amp; x &lt;= end);
+}
+
+private int half(int n) {
+return n / 2;
+}
+
+private int square(int n) {
+return n * n;
+}</code></pre>
+</p>
+
+<h3>I use this the most in Clojure projects.</h3>
+<p>
+Maybe, that is because I am not so fluent in Clojure yet. The same method
+seems to be more valuable in Clojure even for tiny functions. Nested
+s-expressions become very confusing quickly.
+</p>
+
+<p>
+Before
+<pre class="highlight"><code class="clojure">(let [y (if (and (&lt;= min x) (&lt;= x max))
+          (x / 2)
+          (x * x))]
+...)</code></pre>
+</p>
+
+<p>
+After
+<pre class="highlight"><code class="clojure">(let [y (calculate-y min max x)]
+...)
+
+(defn calculate-y [min max x]
+(if (in-range? min max x)
+(half x)
+(square x)))
+
+(defn in-range? [start end x]
+(and (&lt;= start x) (&lt;= x end)))
+
+(defn half [x]
+(/ x 2))
+
+(defn square [x]
+(* x x))</code></pre>
+</p>
