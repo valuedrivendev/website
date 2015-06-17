@@ -3,7 +3,7 @@ TEMPLATES=$(shell ls tpl/*)
 
 all: draft.html
 
-index.html: min.html
+index.html: min.html rss
 	cp min.html index.html
 
 min.html: draft.html
@@ -26,3 +26,9 @@ min.html: draft.html
 
 draft.html: .spell $(POSTS) $(TEMPLATES)
 	./scripts/publish.sh $@ $(POSTS)
+
+.PHONY: rss
+rss: rss/rss.xml
+
+rss/rss.xml: .spell $(POSTS)
+	./scripts/rss.sh $@ $(POSTS)
