@@ -3,7 +3,7 @@ TEMPLATES=$(shell ls tpl/*)
 
 all: draft.html
 
-index.html: min.html rss
+index.html: min.html
 	cp min.html index.html
 
 min.html: draft.html
