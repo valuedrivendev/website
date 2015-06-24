@@ -1,5 +1,5 @@
-POSTS=$(shell ls -r posts/*)
-TEMPLATES=$(shell ls tpl/*)
+POSTS = $(EXTRA_POSTS) $(shell ls -r posts/*)
+TEMPLATES = $(shell ls tpl/*)
 
 all: draft.html
 
@@ -32,3 +32,7 @@ rss: rss/rss.xml
 
 rss/rss.xml: .spell $(POSTS)
 	./scripts/rss.sh $@ $(POSTS)
+
+.PHONY: clean
+clean:
+	rm -f index.html draft.html min.html
