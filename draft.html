@@ -14,13 +14,8 @@
 <style>
 body {
     font-family: 'Bitter', serif;
-}
-tt {
-    /*font-family: 'PT Mono', monospace;*/
-}
-pre.highlight {
-    background: none;
-    /*border: none;*/
+    font-size: 1.7em;
+    line-height: 1.7em;
 }
 .footer {
     font-size: small;
@@ -74,13 +69,49 @@ pre.highlight {
         <a href="https://github.com/valuedrivendev/website">GitHub</a>
         <!-- Temporarily disabled. <a href="rss/rss.xml">RSS</a> -->
     </div>
-    <p class="lead">
+    <p>
     <em>Disclaimer: These are my opinions and reflections. I do not expect all
         of them to be reasonable. However, I am sure somebody shares similar
         thoughts. If you disagree with me, I understand. I would like to present
         another perspective. That is all.
     </em>
     </p>
+<hr />
+
+<h1><a href="#20150624" id="20150624">#</a> Reading Code</h1>
+
+<p>June 24, 2015.</p>
+
+<p>I am reading <em>How to Write a Sentence: And How to Read One</em> by Stanley Fish. It
+is a great read. The consistent theme seems to be "learn the forms." That
+reminds me of how I read code.</p>
+
+<h3>My Method</h3>
+
+<ol>
+<li><p>Identify the <strong>goal</strong> of a change.</p>
+
+<p>"Catch the exception, E, and handle it."</p></li>
+<li><p>Identify the <strong>operations</strong> essential to implement the change.</p>
+
+<p>There must be a new <tt>catch</tt> clause.</p></li>
+<li><p>Find <strong>code</strong> that performs the essential operations.</p>
+
+<p>This should be obvious. Otherwise, the patch is too big.</p></li>
+<li><p>Map the <strong>structure</strong> of the change bottom-up.</p>
+
+<ol>
+<li>What happens after the exception is handled? </li>
+<li>Is the relevant code a part of a sequence? If so, how does the change fit
+in the sequence?</li>
+<li>Is the exception handled at a correct location?</li>
+</ol></li>
+</ol>
+
+<h3>"Structure" sounds like "form."</h3>
+
+<p>I focus on learning the organization when I review code. It is like jigsaw
+puzzle to me.</p>
 <hr />
 
 <h1><a href="#20150623" id="20150623">#</a> Code Review</h1>
