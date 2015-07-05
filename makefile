@@ -1,4 +1,4 @@
-POSTS = $(EXTRA_POSTS) $(shell ls -r posts/*.md)
+POSTS = $(EXTRA_POSTS) $(shell ls -r posts/*/*/*.md)
 TEMPLATES = $(shell ls tpl/*)
 
 all: draft.html
