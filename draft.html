@@ -19,6 +19,13 @@ body {
 .footer {
     font-size: small;
 }
+pre {
+    background-color: transparent;
+}
+code {
+    color: black;
+    background-color: transparent;
+}
 </style>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -75,6 +82,85 @@ body {
         another perspective. That is all.
     </em>
     </p>
+<hr />
+
+<h1><a href="#20150712" id="20150712">#</a> Source Code Documentation</h1>
+
+<p>July 12, 2015.</p>
+
+<p>I noticed a bug about a week ago in my code. The project had been on hold for
+about two months. I figured, "it is about time." To my surprise, diagnosing the
+problem took some effort despite the detailed documentation. Then I found the
+bug in a piece of poorly documented code. Go figure.</p>
+
+<p>What about unit tests? I discuss unit tests at the end of this post.</p>
+
+<h3>The Bug</h3>
+
+<p>I wrote a function to replace a prefix of a path with another one.</p>
+
+<pre><code>;; Re-anchor :name from a to b.
+(defn replace-prefix
+  [path a b]
+  (clojure.string/replace path a b))
+</code></pre>
+
+<p>This was a quick hack for a prototype. Of course, I used the same excuse to skip
+tests. This function has a few bugs. Can you spot them?</p>
+
+<p>The function seems simple in isolation, but the bug analysis expands the scope
+of work. Are there similar problems elsewhere?  Should I refactor the code and
+create a well-tested utility function? It never ends. I told myself, "I wish I
+had left more context behind."</p>
+
+<p>I would have found logic errors if I tried to explain this function to myself
+using examples. For instance, I may have added the following in documentation.</p>
+
+<pre><code class="clojure">;; For example,
+;;  (replace-prefix "/r/a" "/r/" "/R") => "/R/a"
+;;  (replace-prefix "/r/a" "/r"  "/R") => "/R/a"
+</code></pre>
+
+<p>Claims made in examples do not reflect the implementation.</p>
+
+<pre><code>(replace-prefix "/r/a" "/r/" "/R") =&gt; "/Ra"  ; Bad.
+(replace-prefix "/r/a" "/r"  "/R") =&gt; "/R/a" ; Good.
+</code></pre>
+
+<p>A possible solution is shown below.</p>
+
+<pre><code>(defn replace-prefix
+  [path old-prefix new-prefix]
+  (str new-prefix
+       separator
+       (clojure.string/replace path old-prefix "")))
+</code></pre>
+
+<p>This function is still incomplete because it does not address many cases.</p>
+
+<ol>
+<li>What happens when <code>old-prefix</code> is not a prefix of <code>path</code>?</li>
+<li>What about repeated path separators? Does it matter?</li>
+<li>And so on.</li>
+</ol>
+
+<h3>Examples, examples, examples!</h3>
+
+<p>I love it when a programmer takes time and care to document illustrative
+examples in source code. User contributed examples seem very effective as well;
+see <a href="https://clojuredocs.org/clojure.core/map" title="clojure.core/map">clojure.core/map</a> for instance.</p>
+
+<p>Listing all expected behaviours of a function exhaustively has no value because
+it leaves creating a concise summary to readers. On the other hand, providing a
+few representative examples is pragmatic but more difficult than the former.
+That does mean that we should skip it.</p>
+
+<h3>What about unit tests?</h3>
+
+<p>I like well-tested utility functions. They are even better when they come with
+documentation full of examples. A reliable and automated unit test suite may be
+a better solution than a list of input and output pairs. But don't you see? You
+need some possible input and output pairs to write tests!</p>
 <hr />
 
 <h1><a href="#20150630" id="20150630">#</a> I Love Documentation.</h1>
