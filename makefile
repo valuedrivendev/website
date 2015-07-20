@@ -1,5 +1,5 @@
-POSTS = posts/posts.md $(EXTRA_POSTS) $(shell ls -r posts/*/*/*.md)
-ABOUT = posts/about.md
+POSTS = contents/posts.md $(EXTRA_POSTS) $(shell ls -r contents/posts/*/*/*.md)
+ABOUT = contents/about.md
 TEMPLATES = $(shell ls tpl/*)
 
 # Minimize a HTML file.
