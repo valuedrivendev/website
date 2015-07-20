@@ -1,4 +1,5 @@
-POSTS = $(EXTRA_POSTS) $(shell ls -r posts/*/*/*.md)
+POSTS = posts/posts.md $(EXTRA_POSTS) $(shell ls -r posts/*/*/*.md)
+ABOUT = posts/about.md
 TEMPLATES = $(shell ls tpl/*)
 
 # Minimize a HTML file.
@@ -18,7 +19,7 @@ MINIMIZE_HTML = ./node_modules/.bin/html-minifier \
 				--remove-cdatasections-from-cdata \
 				$(1)
 
-all: draft.html
+all: index.html about.html
 
 index.html: min.html
 	cp min.html index.html
@@ -26,14 +27,19 @@ index.html: min.html
 min.html: draft.html
 	$(call MINIMIZE_HTML,$<,$@)
 
-.spell: $(POSTS)
-	for i in $(POSTS); do \
+.spell: $(POSTS) $(ABOUT)
+	for i in $^; do \
 		aspell -c $$i; \
 	done
 	touch .spell
 
 draft.html: .spell $(POSTS) $(TEMPLATES)
 	./scripts/publish.sh $@ $(POSTS)
+
+# Generate about.html from about.md.
+# TODO It might be better to move HTML minimization to publish.sh.
+about.html: .spell $(ABOUT) $(TEMPLATES)
+	./scripts/publish.sh $@ $(ABOUT)
 
 .PHONY: rss
 rss: rss/rss.xml
