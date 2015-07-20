@@ -10,7 +10,7 @@ July 19, 2015.
 
 My name is [Brian Lee](http://koreanbrian.com). I am a hacker as in "I code for
 amusement." I am not a software developer or engineer. Computer Science,
-Computer and Software Engineering complement my interests but are not the focus.
+Computer and Software Engineering complement my interests but are not my focus.
 I am interested in programming as a writing process.
 
 To me, computer programming is a process of describing a solution to a problem
