@@ -1,27 +1,42 @@
 #!/bin/bash
 
+# Output filename.
+output=$1; shift
+
+log() {
+    >&2 echo "$*"
+}
+
 combine_posts() {
-    cat 
+    # Is this the first article? If so, skip the divider when formatting posts.
+    local first_article=1
+
+    log "  Posts"
+    while [ ! -z "$1" ]; do
+        log "$1"
+        if [ $first_article -eq 0 ]; then
+            echo "<hr/>"
+        elif [ "$1" != "contents/posts.md" ]; then
+            # Hack hack. contents/posts.md acts as a container for "stuff I
+            # should put before any posts." It's like a prelude, not an article.
+            first_article=0
+        fi
+        markdown "$1"
+        shift
+    done
 }
 
 header() {
-    cat ~/website/tpl/header.html
+    log "  Header"
+    cat tpl/header.html
 }
 
 footer() {
-    cat ~/website/tpl/footer.html
+    log "  Footer"
+    cat tpl/footer.html
 }
 
-output=$1; shift
-
-echo "Publishing."
-echo "  Header"
+log "Publishing."
 header > $output
-echo "  Posts"
-while [ ! -z "$1" ]; do
-    echo "$1"
-    markdown "$1" >> $output
-    shift
-done
-echo "  Footer"
+combine_posts $* >> $output
 footer >> $output
