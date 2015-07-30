@@ -4,7 +4,7 @@ var navbar_active = '#navbar-about-button';
 
 # <a href="#about" id="about">#</a> About
 
-July 19, 2015.
+<div class="pubdate">July 19, 2015.</div>
 
 ### I code for amusement.
 
