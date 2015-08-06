@@ -1,0 +1,2 @@
+- looks: Set the max-width of the site to be something smaller than 1200px.
+- css: Cusotmize bootstrap css to minimize it even more.
