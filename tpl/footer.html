@@ -33,7 +33,10 @@ function lazy_load_css(url) {
 //lazy_load_css('http://fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700');
 </script>
 <script>
-    $(document).ready(function () { $(navbar_active).addClass('active'); });
+    $(document).ready(function () {
+        $.support.transition = false;
+        $(navbar_active).addClass('active');
+    });
 </script>
 </body>
 </html>

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="highlight/styles/vs.css">
 <style>
 body {
-    font-family: "Georgia", "Helvetica", "Arial", serif;
+    font-family: "Georgia", serif;
     font-size: 1.7em;
     line-height: 1.8em;
 }
@@ -56,6 +56,10 @@ p + p {
 
 .navbar-brand {
     color: black !important;
+}
+
+.navbar-header, .navbar {
+    font-family: sans-serif;
 }
 </style>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -165,7 +169,10 @@ function lazy_load_css(url) {
 //lazy_load_css('http://fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700');
 </script>
 <script>
-    $(document).ready(function () { $(navbar_active).addClass('active'); });
+    $(document).ready(function () {
+        $.support.transition = false;
+        $(navbar_active).addClass('active');
+    });
 </script>
 </body>
 </html>
